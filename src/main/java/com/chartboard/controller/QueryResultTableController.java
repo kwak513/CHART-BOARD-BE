@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chartboard.dto.ChartDashboartConnectDto;
+import com.chartboard.dto.ChartDashboardConnectDto;
 import com.chartboard.dto.ChartInfoDto;
 import com.chartboard.dto.ChartIntoDashboardDto;
 import com.chartboard.dto.DashboardInfoDto;
@@ -131,7 +131,7 @@ public class QueryResultTableController {
 	
 //	대시보드에서 차트의 x, ,y, w, h 수정
 	@PutMapping("/updateChartDashboardConnect")
-	public boolean updateChartDashboardConnect(@RequestBody ChartDashboartConnectDto chartDashboartConnectDto) {
-		return queryResultTableService.updateChartDashboardConnect(chartDashboartConnectDto);
+	public boolean updateChartDashboardConnect(@RequestBody ChartDashboardConnectDto chartDashboardConnectDto) {
+		return queryResultTableService.updateChartDashboardConnect(chartDashboardConnectDto);
 	}
 }

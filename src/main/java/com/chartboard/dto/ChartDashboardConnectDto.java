@@ -10,12 +10,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChartDashboartConnectDto {
+public class ChartDashboardConnectDto {
 	Long chartInfoId;
 	Long dashboardInfoId;
-	int dashboardX;
-	int dashboardY;
-	int dashboardW;
-	int dashboardH;
+	Integer dashboardX;
+	Integer dashboardY;
+	Integer dashboardW;
+	Integer dashboardH;
 	
 }

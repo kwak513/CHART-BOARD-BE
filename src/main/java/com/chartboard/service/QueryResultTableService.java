@@ -13,7 +13,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.chartboard.common.JPAUtil;
-import com.chartboard.dto.ChartDashboartConnectDto;
+import com.chartboard.dto.ChartDashboardConnectDto;
 import com.chartboard.dto.ChartInfoDto;
 import com.chartboard.dto.ChartIntoDashboardDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +23,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
-import lombok.Value;
 
 @Service
 public class QueryResultTableService {
@@ -211,19 +210,19 @@ public class QueryResultTableService {
 
 	//	대시보드에서 차트의 x, ,y, w, h 수정
 	@Transactional
-	public boolean updateChartDashboardConnect(ChartDashboartConnectDto chartDashboartConnectDto) {
+	public boolean updateChartDashboardConnect(ChartDashboardConnectDto chartDashboardConnectDto) {
 	
 		try {
 			
 				String sql = "UPDATE chart_dashboard_connect SET dashboard_x = :dashboard_x, dashboard_y = :dashboard_y, dashboard_w = :dashboard_w, dashboard_h = :dashboard_h WHERE chart_info_id = :chart_info_id AND dashboard_info_id = :dashboard_info_id";
 				
 				Query query = em.createNativeQuery(sql);
-				query.setParameter("dashboard_x", chartDashboartConnectDto.getDashboardX());
-				query.setParameter("dashboard_y", chartDashboartConnectDto.getDashboardY());
-				query.setParameter("dashboard_w", chartDashboartConnectDto.getDashboardW());
-				query.setParameter("dashboard_h", chartDashboartConnectDto.getDashboardH());
-				query.setParameter("chart_info_id", chartDashboartConnectDto.getChartInfoId());
-				query.setParameter("dashboard_info_id", chartDashboartConnectDto.getDashboardInfoId());
+				query.setParameter("dashboard_x", chartDashboardConnectDto.getDashboardX());
+				query.setParameter("dashboard_y", chartDashboardConnectDto.getDashboardY());
+				query.setParameter("dashboard_w", chartDashboardConnectDto.getDashboardW());
+				query.setParameter("dashboard_h", chartDashboardConnectDto.getDashboardH());
+				query.setParameter("chart_info_id", chartDashboardConnectDto.getChartInfoId());
+				query.setParameter("dashboard_info_id", chartDashboardConnectDto.getDashboardInfoId());
 
 				
 				query.executeUpdate();
