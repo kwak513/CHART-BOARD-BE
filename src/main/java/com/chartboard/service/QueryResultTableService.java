@@ -37,9 +37,13 @@ public class QueryResultTableService {
 		List resultList = new ArrayList<>();
 		
 		// DB 연결 - 이 부분은 사용자의 데이터베이스 정보 들어오는 곳. 나중에 로직 바꿀거임.
-		String jdbcurl = "";
-		String username = "";
-		String password = "";
+//		String jdbcurl = "";
+//		String username = "";
+//		String password = "";
+		
+		String jdbcurl = "jdbc:mariadb://localhost:3306/sampledata";
+		String username = "sqlboard_admin";
+		String password = "1234";
 		
 		
 		
