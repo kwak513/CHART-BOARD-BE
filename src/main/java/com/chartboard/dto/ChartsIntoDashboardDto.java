@@ -10,7 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChartIntoDashboardDto {
-	Long dashboardId;
+public class ChartsIntoDashboardDto {
+	
+	Long dashboardInfoId;
 	List<Long> chartInfoIds;
 }

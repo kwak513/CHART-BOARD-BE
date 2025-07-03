@@ -15,4 +15,6 @@ public class ChartInfoDto {
 	List<Map<String, Object>> resultTableInfo;
 	Map<String, Object> chartConfig;
 	String chartName;
+	
+	Long userId;
 }

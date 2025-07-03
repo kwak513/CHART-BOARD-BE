@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chartboard.dto.ChartDashboardConnectDto;
 import com.chartboard.dto.ChartInfoDto;
-import com.chartboard.dto.ChartIntoDashboardDto;
+import com.chartboard.dto.ChartsIntoDashboardDto;
 import com.chartboard.dto.DashboardInfoDto;
 import com.chartboard.service.QueryResultTableService;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin("*")
@@ -24,10 +26,10 @@ public class QueryResultTableController {
 	@Autowired
 	QueryResultTableService queryResultTableService;
 
-//	customQuery의 결과 데이터 반환
+	//	customQuery의 결과 데이터 반환
 	@GetMapping("/showResultTableByCustomQuery")
-	public List<Map<String, Object>> showResultTableByCustomQuery(@RequestParam String customQuery){
-		return queryResultTableService.showResultTableByCustomQuery(customQuery);
+	public List<Map<String, Object>> showResultTableByCustomQuery(@RequestParam String customQuery, @RequestParam Long userId){
+		return queryResultTableService.showResultTableByCustomQuery(customQuery, userId);
 	}
 	/* showResultTableByCustomQuery 반환값 예시
 	 * [
@@ -62,12 +64,19 @@ public class QueryResultTableController {
 		return queryResultTableService.insertIntoChartInfo(chartInfoDto);
 	}
 	
+/*	
 //	chartInfo 테이블 전체 select (test 용이라서, 나중에 회원 만들면 지울거임.)
 	@GetMapping("/selectAllFromChartInfoTable")
 	public List<Map<String, Object>> selectAllFromChartInfoTable(){
 		return queryResultTableService.selectAllFromChartInfoTable();
 	}
+*/
 	
+	// 회원이 저장한 차트 정보 조회(chart_info table에서 select)
+	@GetMapping("/selectFromChartInfoTableByUserId")
+	public List<Map<String, Object>> selectFromChartInfoTableByUserId(@RequestParam Long userId){
+		return queryResultTableService.selectFromChartInfoTableByUserId(userId);
+	}
 	/*
 	 [
 	  {
@@ -88,29 +97,42 @@ public class QueryResultTableController {
 	// 대시보드 추가
 	@PostMapping("/insertIntoDashboardInfo")
 	public boolean insertIntoDashboardInfo(@RequestBody DashboardInfoDto dashboardInfoDto) {
-		
-		System.out.println("dashboardName: " + dashboardInfoDto.getDashboardName());
-		return queryResultTableService.insertIntoDashboardInfo(dashboardInfoDto.getDashboardName());
+		return queryResultTableService.insertIntoDashboardInfo(dashboardInfoDto);
 	}
 	
+/*	
 //	전체 대시보드 조회 (test 용이라서, 나중에 회원 만들면 지울거임.)
 	@GetMapping("/selectAllFromDashboardInfoTable")
 	public List<Map<String, Object>> selectAllFromDashboardInfoTable(){
 		return queryResultTableService.selectAllFromDashboardInfoTable();
 	}
+*/
 	
-//	만들어진 대시보드에 차트들을 추가
-	@PostMapping("/insertChartIntoDashboard")
-	public boolean insertChartIntoDashboard(@RequestBody ChartIntoDashboardDto chartIntoDashboardDto) {
-		return queryResultTableService.insertChartIntoDashboard(chartIntoDashboardDto);
+	// 회원이 저장한 대시보드 정보 조회(dashboard_info table에서 select)
+	@GetMapping("/selectFromDashboardInfoTableByUserId")
+	public List<Map<String, Object>> selectFromDashboardInfoTableByUserId(@RequestParam Long userId){
+		return queryResultTableService.selectFromDashboardInfoTableByUserId(userId);
 	}
 	
-//	선택된 대시보드의 차트 정보 가져오기(dashboard_x, dashboard_y, dashboard_w, dashboard_h, CHART_TYPE, RESULT_TABLE_INFO, CHART_CONFIG, chart_name)
+	//	선택된 대시보드의 차트 정보 가져오기(dashboard_x, dashboard_y, dashboard_w, dashboard_h, CHART_TYPE, RESULT_TABLE_INFO, CHART_CONFIG, chart_name)
 	@GetMapping("/selectChartFromDashboard")
 	public List<Map<String, Object>> selectChartFromDashboard(@RequestParam Long dashboardInfoId){
 		return queryResultTableService.selectChartFromDashboard(dashboardInfoId);
 	}
 	
+	
+	//	대시보드에서 차트의 x, ,y, w, h 수정
+	@PutMapping("/updateChartDashboardConnect")
+	public boolean updateChartDashboardConnect(@RequestBody ChartDashboardConnectDto chartDashboardConnectDto) {
+		return queryResultTableService.updateChartDashboardConnect(chartDashboardConnectDto);
+	}
+	
+	// 프론트에서 직접 호출 O - 대시보드에 차트 1개 이상 추가(차트의 id를 순회하며, insertChartIntoDashboard 호출)
+	@PostMapping("/insertManyChartsIntoDashboard")
+	public boolean insertManyChartsIntoDashboard(@RequestBody ChartsIntoDashboardDto chartsIntoDashboardDto) {
+		return queryResultTableService.insertManyChartsIntoDashboard(chartsIntoDashboardDto);
+	}
+		
 	/*
 	 [
 	 {
@@ -128,10 +150,6 @@ public class QueryResultTableController {
   ]
   
    */
+
 	
-//	대시보드에서 차트의 x, ,y, w, h 수정
-	@PutMapping("/updateChartDashboardConnect")
-	public boolean updateChartDashboardConnect(@RequestBody ChartDashboardConnectDto chartDashboardConnectDto) {
-		return queryResultTableService.updateChartDashboardConnect(chartDashboardConnectDto);
-	}
 }

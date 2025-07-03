@@ -1,7 +1,6 @@
 package com.chartboard.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +83,7 @@ public class UserService {
 		
 		try {
 			// 이미 가입된 회원 있는지 확인
-			String sql = "SELECT username, password FROM user WHERE username = :username";
+			String sql = "SELECT id, username, password FROM user WHERE username = :username";
 					
 	        Query query = em.createNativeQuery(sql, Tuple.class);
 	        query.setParameter("username", userLoginDto.getUsername());
@@ -127,13 +126,11 @@ public class UserService {
 	        int insertConnectTableNum = query1.executeUpdate();
 	        
 	        // 2. DB_CONNECTION TABLE에 방금 insert한 행의 id 값 가져오기
-			String sql2 = "SELECT id FROM db_connection WHERE jdbc_url = :jdbc_url AND db_username = :db_username ORDER BY ID DESC LIMIT 1";
+			String sql2 = "SELECT LAST_INSERT_ID()";
 					
 	        Query query2 = em.createNativeQuery(sql2);
-	        query2.setParameter("jdbc_url", insertDbConnectionDto.getJdbcUrl());
-	        query2.setParameter("db_username", insertDbConnectionDto.getDbUsername());
 	        
-	        Long recentInsertedDbConnectionId = (Long) query2.getSingleResult();	//방금 insert한 행의 id
+	        Long recentInsertedDbConnectionId = ((Number) query2.getSingleResult()).longValue();	//방금 insert한 행의 id
 	        
 	        
 	     // 3. USER_DB_CONNECT TABLE에 insert
@@ -162,7 +159,7 @@ public class UserService {
 	}
 	
 	// 사용자의 DB 정보 조회 (로그인 때 프론트로 보낸 user table의 id를 이용하여, db_connection 테이블에서 조회)
-	public List<Map<String, Object>> selectFromDbConnection(Long userId){
+	public Map<String, Object> selectFromDbConnection(Long userId){
 		
 		try {
 			String sql = "SELECT dc.jdbc_url, dc.db_username, dc.db_password FROM db_connection dc "
@@ -172,14 +169,14 @@ public class UserService {
 			Query query = em.createNativeQuery(sql, Tuple.class);
 			query.setParameter("userId", userId);
 		
-			List<Tuple> rs = query.getResultList();
+			Tuple rs = (Tuple) query.getSingleResult();
 			
-			List<Map<String, Object>> rsToMap = JPAUtil.convertTupleToMap(rs);
+			Map<String, Object> rsToMap = JPAUtil.convertTupleToMap(rs);
 			return rsToMap;
 			
 		} catch(Exception e) {
 			System.out.println("selectFromDbConnection failed: "+ e.getMessage());
-			return new ArrayList<>();
+			return new HashMap<>();
 		}
 	}
 	

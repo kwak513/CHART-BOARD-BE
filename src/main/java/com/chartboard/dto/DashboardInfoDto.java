@@ -12,4 +12,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DashboardInfoDto {
 	String dashboardName;
+	Long userId;
 }
