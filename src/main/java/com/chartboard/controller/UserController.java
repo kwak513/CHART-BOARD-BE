@@ -47,4 +47,10 @@ public class UserController {
 		return userService.selectFromDbConnection(userId);
 	}
 	
+	// 사용자의 DB 정보가 존재하는지 확인
+	@GetMapping("/selectCountFromDbConnection")
+	public boolean selectCountFromDbConnection(Long userId) {
+		return userService.selectCountFromDbConnection(userId);
+	}
+		
 }

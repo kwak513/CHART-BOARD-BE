@@ -108,7 +108,7 @@ public class QueryResultTableController {
 	}
 */
 	
-	// 회원이 저장한 대시보드 정보 조회(dashboard_info table에서 select)
+	// 회원이 저장한 대시보드 id, 이름 조회(dashboard_info table에서 select)
 	@GetMapping("/selectFromDashboardInfoTableByUserId")
 	public List<Map<String, Object>> selectFromDashboardInfoTableByUserId(@RequestParam Long userId){
 		return queryResultTableService.selectFromDashboardInfoTableByUserId(userId);

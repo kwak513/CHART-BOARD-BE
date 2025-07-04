@@ -180,5 +180,29 @@ public class UserService {
 		}
 	}
 	
+	// 사용자의 DB 정보가 존재하는지 확인
+	public boolean selectCountFromDbConnection(Long userId){
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM user_db_connect WHERE user_id = :userId";
+			Query query = em.createNativeQuery(sql);
+			query.setParameter("userId", userId);
+		
+			int selectCount = ((Number) query.getSingleResult()).intValue();
+			
+			if(selectCount == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+		} catch(Exception e) {
+			System.out.println("selectCountFromDbConnection failed: "+ e.getMessage());
+			return false;
+		}
+	}
+	
+	
 
 }

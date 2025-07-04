@@ -105,7 +105,7 @@ public class QueryResultTableService {
 
 			
 			// 3. user_chart_info TABLE에 insert
-			String sql3 = "INSERT INTO user_chart_info (user_id, chart_info_id) VALUES (:user_id, :chart_info_id)";
+			String sql3 = "INSERT INTO user_chart_connect (user_id, chart_info_id) VALUES (:user_id, :chart_info_id)";
 					
 	        Query query3 = em.createNativeQuery(sql3);
 	        query3.setParameter("user_id", chartInfoDto.getUserId());
@@ -230,7 +230,7 @@ public class QueryResultTableService {
 	}
 */
 	
-	// 회원이 저장한 대시보드 정보 조회(dashboard_info table에서 select)
+	// 회원이 저장한 대시보드 id, 이름 조회(dashboard_info table에서 select)
 	public List<Map<String, Object>> selectFromDashboardInfoTableByUserId(Long userId){
 		
 		try {
@@ -248,6 +248,8 @@ public class QueryResultTableService {
 			return new ArrayList<>();
 		}
 	}
+	
+	
 		
 	
 	//	선택된 대시보드의 차트 정보 가져오기(dashboard_x, dashboard_y, dashboard_w, dashboard_h, CHART_TYPE, RESULT_TABLE_INFO, CHART_CONFIG, chart_name)
