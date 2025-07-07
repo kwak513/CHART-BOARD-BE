@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +26,8 @@ import jakarta.transaction.Transactional;
 public class QueryResultTableController {
 	@Autowired
 	QueryResultTableService queryResultTableService;
-
+	
+// -------------------------- 차트 관련 --------------------------
 	//	customQuery의 결과 데이터 반환
 	@GetMapping("/showResultTableByCustomQuery")
 	public List<Map<String, Object>> showResultTableByCustomQuery(@RequestParam String customQuery, @RequestParam Long userId){
@@ -93,7 +95,13 @@ public class QueryResultTableController {
 	  }
 	]
 	 */
+	// 차트 삭제 (user_chart_connect 연결 테이블, chart_info 테이블, chart_dashboard_connect 연결 테이블 에서 삭제)
+	@DeleteMapping("/deleteChart")
+	public boolean deleteChart(@RequestParam Long userId, @RequestParam Long chartId) {
+		return queryResultTableService.deleteChart(userId, chartId);
+	}
 	
+// -------------------------- 대시보드 관련 --------------------------
 	// 대시보드 추가
 	@PostMapping("/insertIntoDashboardInfo")
 	public boolean insertIntoDashboardInfo(@RequestBody DashboardInfoDto dashboardInfoDto) {
@@ -150,6 +158,12 @@ public class QueryResultTableController {
   ]
   
    */
+	
+	// 대시보드 삭제 (user_dashboard_connect 연결 테이블, dashboard_info 테이블, chart_dashboard_connect 연결 테이블에서 삭제)
+	@DeleteMapping("/deleteDashboard")
+	public boolean deleteDashboard(@RequestParam Long userId, @RequestParam Long dashboardId) {
+		return queryResultTableService.deleteDashboard(userId, dashboardId);
+	}
 
 	
 }

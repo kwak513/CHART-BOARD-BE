@@ -34,7 +34,8 @@ public class QueryResultTableService {
 	UserService userService;
 	
 	private ObjectMapper objectMapper = new ObjectMapper(); // JSON 변환기
-
+	
+// -------------------------- 차트 관련 --------------------------
 	//	customQuery의 결과 데이터 반환(회원의 id를 통해, DB 연결 후)
 	public List<Map<String, Object>> showResultTableByCustomQuery(String customQuery, Long userId){
 		List resultList = new ArrayList<>();
@@ -163,9 +164,50 @@ public class QueryResultTableService {
 			return new ArrayList<>();
 		}
 	}
-
 	
+	// 차트 삭제 (user_chart_connect 연결 테이블, chart_info 테이블, chart_dashboard_connect 연결 테이블 에서 삭제)
+	@Transactional
+	public boolean deleteChart(Long userId, Long chartId) {
+		
+		try {
+			// 1. user_chart_connect 연결 TABLE에서 delete
+			String sql1 = "DELETE FROM user_chart_connect WHERE user_id = :userId AND chart_info_id = :chartId";
+	        Query query1 = em.createNativeQuery(sql1);
+	        query1.setParameter("userId", userId);
+	        query1.setParameter("chartId", chartId);
+	        
+	        int deleteUserChartConnect = query1.executeUpdate();
+				   
+	        // 2.  chart_dashboard_connect 연결 TABLE에서 delete
+			String sql2 = "DELETE FROM chart_dashboard_connect WHERE chart_info_id = :chartId";
+			
+			Query query2 = em.createNativeQuery(sql2);
+			query2.setParameter("chartId", chartId);
+			
+			int deleteChartDashboardConnect = query2.executeUpdate();
+			
+	     			
+			// 3.  chart_info TABLE에서 delete
+			String sql3 = "DELETE FROM chart_info WHERE ID = :chartId";
+			
+			Query query3 = em.createNativeQuery(sql3);
+			query3.setParameter("chartId", chartId);
+			
+			int deleteChartInfo= query3.executeUpdate();
+			
+			// deleteChartDashboardConnect >= 0 => 차트가 여러개의 대시보드 or 0개의 대시보드와 연결되었을 수 있기 때문에.
+	        if(deleteChartInfo == 1 && deleteUserChartConnect == 1 && deleteChartDashboardConnect >= 0) {
+	        	System.out.println("deleteChart 성공");
+	        	return true;
+	        }
+			return false;
+		} catch (Exception e) {
+			System.out.println("deleteChart failed: "+ e.getMessage());
+			return false;
+		}
+	}
 	
+// -------------------------- 대시보드 관련 --------------------------
 	// 대시보드 추가
 	@Transactional
 	public boolean insertIntoDashboardInfo(DashboardInfoDto dashboardInfoDto) {
@@ -362,6 +404,48 @@ public class QueryResultTableService {
 			return false;
 		}
 		
+	}
+	
+	// 대시보드 삭제 (user_dashboard_connect 연결 테이블, dashboard_info 테이블, chart_dashboard_connect 연결 테이블에서 삭제)
+	@Transactional
+	public boolean deleteDashboard(Long userId, Long dashboardId) {
+		
+		try {
+			// 1. user_dashboard_connect 연결 TABLE에서 delete
+			String sql1 = "DELETE FROM user_dashboard_connect WHERE user_id = :userId AND dashboard_info_id = :dashboardId";
+	        Query query1 = em.createNativeQuery(sql1);
+	        query1.setParameter("userId", userId);
+	        query1.setParameter("dashboardId", dashboardId);
+	        
+	        int deleteUserDashboardConnect = query1.executeUpdate();
+				   
+	        // 2. chart_dashboard_connect 연결 TABLE에서 delete
+			String sql2 = "DELETE FROM chart_dashboard_connect WHERE dashboard_info_id = :dashboardId";
+			
+			Query query2 = em.createNativeQuery(sql2);
+			query2.setParameter("dashboardId", dashboardId);
+			
+			int deleteChartDashboardConnect = query2.executeUpdate();
+			
+	     			
+			// 3.  dashboard_info TABLE에서 delete
+			String sql3 = "DELETE FROM dashboard_info WHERE id = :dashboardId";
+			
+			Query query3 = em.createNativeQuery(sql3);
+			query3.setParameter("dashboardId", dashboardId);
+			
+			int deleteDashboardInfo= query3.executeUpdate();
+			
+			// deleteChartDashboardConnect >= 0 => 차트가 여러개의 대시보드 or 0개의 대시보드와 연결되었을 수 있기 때문에.
+	        if(deleteUserDashboardConnect == 1 && deleteDashboardInfo == 1 && deleteChartDashboardConnect >= 0) {
+	        	System.out.println("deleteDashboard 성공");
+	        	return true;
+	        }
+			return false;
+		} catch (Exception e) {
+			System.out.println("deleteDashboard failed: "+ e.getMessage());
+			return false;
+		}
 	}
 	
 }
