@@ -111,7 +111,7 @@ Swagger UI로 API 문서 확인 가능:
 http://localhost:8080/swagger-ui/index.html
 
 ## 🧩 관련 레포지토리
-Frontend: https://github.com/kwak513/chart-board-front 
+**Frontend**: [Link to Frontend Repo](https://github.com/kwak513/chart-board-front) 
 
 ---
 
