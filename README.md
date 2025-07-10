@@ -100,7 +100,7 @@ cd chart-board-back
   
 ⚠️ src/main/resources/application.properties 파일에서 DB 연결 정보 등 환경 설정 필요
 ```
-spring.datasource.url=jdbc:mariadb://localhost:3306/chartboard
+spring.datasource.url=jdbc:mariadb://localhost:3306/dbname
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 server.port=8080
