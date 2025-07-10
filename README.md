@@ -93,7 +93,7 @@ cd chart-board-back
 
 ```
 
-# Eclipse 실행 방법
+## 💡Eclipse 실행 방법
 - 프로젝트를 Import → Maven → Existing Maven Projects로 불러오기
 - 프로젝트 선택 후 Run As → Spring Boot App 실행
 
