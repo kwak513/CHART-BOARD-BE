@@ -48,11 +48,11 @@ ChartBoard/
 │ │ │ │ ├── ChartDashboardConnectDto.java
 │ │ │ │ └── ChartsIntoDashboardDto.java
 │ │ │ │
-│ │ │ ├── service/ # JPA 인터페이스
+│ │ │ ├── service/ 
 │ │ │ │ ├── UserService.java
 │ │ │ │ └── QueryResultTableService.java
 │ │ │ │
-│ │ │ ├── controller/ # API 요청 처리
+│ │ │ ├── controller/ 
 │ │ │ │ ├── UserController.java
 │ │ │ │ └── QueryResultTableController.java
 │ │ └── resources/
