@@ -26,6 +26,9 @@
 - **Build Tool**: Maven
 - **Documentation**: Swagger  
 
+## 📊 데이터베이스 설계 (ERD)
+<img width="1582" height="562" alt="image" src="https://github.com/user-attachments/assets/0c031fda-ec94-465a-a254-bbe720f4a46c" />
+
 
 ## 📁 주요 파일 구조
 ```
