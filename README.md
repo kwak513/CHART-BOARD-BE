@@ -1,23 +1,24 @@
-# 📊 차트보드 (ChartBoard)
+# 📊 ChartBoard
 
-## 📢 서비스 한줄 소개  
-**ChartBoard** — SQL 쿼리 결과를 다양한 차트로 시각화하고, 대시보드에서 차트들을 한눈에 조회하는 데이터 시각화 웹 서비스
+## 📢 Introduction
+**ChartBoard** — A data visualization web service that transforms SQL query results into various charts and manages them at a glance through customizable dashboards.
+
 <img width="1639" height="760" alt="image" src="https://github.com/user-attachments/assets/fd895e5c-9744-476b-9281-d34f2f5e0c63" />
 
 
-## 📝 서비스 소개  
-**ChartBoard**는 사용자가 입력한 SQL 쿼리 결과를 **다양한 형태의 차트로 시각화**하고, 이를 대시보드에 추가하여 데이터를 직관적으로 관리할 수 있도록 돕는 데이터 시각화 도구입니다.
+## 📝 Service Overview
+ChartBoard is a data visualization tool designed to help users manage data intuitively. By inputting SQL queries, users can visualize results in various chart formats and add them to personalized dashboards for efficient data monitoring.
 
 
 
-## 👥 개발자 소개
+## 👥 Developer
 
 | 이름   | 역할         |
 |--------|--------------|
-| 곽채연 | Frontend 개발, Backend 개발 |
+| Chaeyeon Kwak | Full-stack development |
 
 
-## 🛠 기술 스택
+## 🛠 Tech Stack
 
 - **Framework**: Spring Boot  
 - **Language**: Java  
@@ -26,11 +27,11 @@
 - **Build Tool**: Maven
 - **Documentation**: Swagger  
 
-## 📊 데이터베이스 설계 (ERD)
+## 📊 Database Entity Relationship Diagram (ERD)
 <img width="1582" height="562" alt="image" src="https://github.com/user-attachments/assets/0c031fda-ec94-465a-a254-bbe720f4a46c" />
 
 
-## 📁 주요 파일 구조
+## 📁 Key File Structure
 ```
 ChartBoard/
 ├── src/
@@ -67,36 +68,37 @@ ChartBoard/
 └── pom.xml
 ```
 
-## 📌 주요 기능
+## 📌 Key Features
 
-### ✅ SQL 쿼리 실행
-- 사용자가 입력한 SELECT 쿼리를 실행하고 결과를 반환  
-- 프론트엔드에서 다양한 차트로 시각화 가능하도록 JSON 데이터 제공
+### ✅ SQL Query Execution
+- Dynamic Query Processing: Executes user-defined SELECT statements and returns real-time results.
+- Data Serialization: Provides structured JSON data optimized for frontend visualization into various chart types.
 
-### 📋 대시보드 관리
-- 대시보드 생성, 삭제 기능  
-- 대시보드에 차트 배치 및 위치, 크기 저장
+### 📋 Dashboard Management
+- Dashboard CRUD: Supports creating, viewing, and deleting customized dashboards.
+- Layout Persistence: Persists chart arrangements, including specific coordinates (position) and dimensions (size), for a consistent user experience.
 
 
-## 🚀 백엔드 서버 실행 방법
+## 🚀 Getting Started
 
 
 ```bash
-# 프로젝트 클론
+# Clone the repository
 git clone https://github.com/kwak513/chart-board-back.git
 cd chart-board-back
 
-# 실행 (IntelliJ에서 실행하거나 CLI에서)
+# Run the application (via CLI or IntelliJ)
 ./mvnw spring-boot:run
 
 ```
 
-## 💡Eclipse 실행 방법
-- 프로젝트를 Import → Maven → Existing Maven Projects로 불러오기
-- 프로젝트 선택 후 Run As → Spring Boot App 실행
+## 💡How to Run in Eclipse
+- Import Project: Select Import → Maven → Existing Maven Projects.
+- Select Directory: Browse to the cloned project folder.
+- Run Application: Right-click the project → Run As → Spring Boot App.
 
   
-⚠️ src/main/resources/application.properties 파일에서 DB 연결 정보 등 환경 설정 필요
+⚠️ Before running the application, ensure you configure the environment settings in the src/main/resources/application.properties file:
 ```
 spring.datasource.url=jdbc:mariadb://localhost:3306/dbname
 spring.datasource.username=your_username
@@ -104,11 +106,11 @@ spring.datasource.password=your_password
 server.port=8080
 spring.jpa.hibernate.ddl-auto=update
 ```
-## 🚀 API 문서 (Swagger)
-Swagger UI로 API 문서 확인 가능:
+## 🚀 API Documentation (Swagger)
+The API documentation is automatically generated and can be accessed via Swagger UI once the server is running:
 http://localhost:8080/swagger-ui/index.html
 
-## 🧩 관련 레포지토리
+## 🧩 Related Repository
 **Frontend**: [Link to Frontend Repo](https://github.com/kwak513/chart-board-front) 
 
 
