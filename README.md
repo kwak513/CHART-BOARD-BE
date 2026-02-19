@@ -13,7 +13,7 @@ ChartBoard is a data visualization tool designed to help users manage data intui
 
 ## 👥 Developer
 
-| 이름   | 역할         |
+| Name      | Role                  |
 |--------|--------------|
 | Chaeyeon Kwak | Full-stack development |
 
