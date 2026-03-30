@@ -78,6 +78,8 @@ ChartBoard/
 - Dashboard CRUD: Supports creating, viewing, and deleting customized dashboards.
 - Layout Persistence: Persists chart arrangements, including specific coordinates (position) and dimensions (size), for a consistent user experience.
 
+![BI Tool dashboard gif](https://github.com/user-attachments/assets/db6a5c34-395e-4d8a-ab4f-d73a7cf67711)
+
 
 ## 🚀 Getting Started
 
